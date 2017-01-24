@@ -2,3 +2,4 @@
 
 The list of scripts:
 * telnet.py
+* scanner.py
