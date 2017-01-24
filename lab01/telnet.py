@@ -1,3 +1,9 @@
+############
+#
+# Connect to the router and execute the command.
+#
+############
+
 import telnetlib
 import socket
 import sys

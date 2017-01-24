@@ -1,3 +1,9 @@
+############
+#
+# Iterate through the ports and check if you can establish the connection
+#
+############
+
 import telnetlib
 import socket
 
