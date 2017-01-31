@@ -9,6 +9,7 @@ import jinja2
 import paramiko
 import time
 
+server = '192.168.35.130'
 host = '192.168.35.121'
 username = 'cisco'
 password = 'cisco'
@@ -73,7 +74,6 @@ if __name__ == '__main__':
     loopback_dictionary = dict()
     loopback_dictionary['interfaces'] = create_loopbacks()
 
-    print loopback_dictionary
     # Load the template
     template = load_template()
 
@@ -81,18 +81,16 @@ if __name__ == '__main__':
     template_rendered = template.render(loopback_dictionary)
 
     # Save template to file
-    f = open('config.txt', 'w')
+    f = open('/var/www/html/config.txt', 'w')
     f.write(template_rendered)
     f.close()
 
+    # Create connection
+    client = create_connection()
+    shell = client.invoke_shell()
 
-    # loopDict = createLoopbackDict()
-    # rendered_template = template.render({'interfaces': loopDict})
+    # Copy file from HTTP server to router
+    command = "copy http://{}/config.txt bootflash".format(server)
+    send_command(shell, command)
 
-    # shell = create_shell()
-    # # shell = client.invoke_shell()
-    # print shell
-    # print sendCommand(shell, "configure terminal")
-    # for line in rendered_template.splitlines():
 
-    #     print sendCommand(shell, line)
