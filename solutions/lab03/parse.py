@@ -36,6 +36,7 @@ def getIpInterfaceBrief():
     shell = client.invoke_shell()
     sendCommand(shell, 'terminal length 0')
     ipIntBriefOutput = sendCommand(shell, 'show ip interface brief')
+    client.close()
     return ipIntBriefOutput
 
 

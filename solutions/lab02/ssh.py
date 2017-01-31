@@ -45,3 +45,6 @@ print ipIntBriefOutput
 # stdin, stdout, stderr = client.exec_command('show ip interface brief')
 # print stdout.read()
 # print stderr.read()
+
+# Close the connection
+client.close()
