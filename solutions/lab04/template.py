@@ -91,6 +91,14 @@ if __name__ == '__main__':
 
     # Copy file from HTTP server to router
     command = "copy http://{}/config.txt bootflash".format(server)
-    send_command(shell, command)
+    print send_command(shell, command)
+    print send_command(shell, '')
+    print send_command(shell, '')
 
+    # Copy configuration to the running-configuration
+    command = "copy bootflash:config.txt system:running-config"
+    print send_command(shell, command)
+    print send_command(shell, '')
 
+    # CLose the connection
+    client.close()
