@@ -1,8 +1,8 @@
-############
-#
-# Connect to the router and execute the command.
-#
-############
+############################################
+#  Create a script, that will connect to   #
+#  router (using telnet) and execute       #
+#  "show ip interface brief" command.      #
+############################################
 
 import telnetlib
 import socket

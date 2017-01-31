@@ -1,0 +1,6 @@
+{% for interface in interfaces %}
+interface {{ interface }}
+ ip address {{ interfaces[interface] }} 255.255.255.255
+ exit
+!
+{% endfor %}

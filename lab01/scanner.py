@@ -1,8 +1,8 @@
-############
-#
-# Iterate through the ports and check if you can establish the connection
-#
-############
+################################################
+#  Create a script, that will iterate through  #
+#  given port list, and print OPEN or CLOSED   #
+#  for each port.                              #
+################################################
 
 import telnetlib
 import socket
