@@ -35,11 +35,25 @@ def load_template():
     return template
 
 
+# Create dictionary: key - interfaceId, value - ip address
+# @param count - number of interfaces (default=10)
 def create_loopbacks(count=10):
     loopback_dictionary = dict()
     for i in range(count):
         loopback_dictionary['loopback 100{}'.format(str(i))] = '172.16.{}.1'.format(str(i))
     return loopback_dictionary
+
+
+# Open the SSH connection
+def create_connection():
+    # Create the paramiko SSH instance
+    client = paramiko.SSHClient()
+    policy = paramiko.client.WarningPolicy()
+    client.set_missing_host_key_policy(policy)
+    # Connect to the host and invoke shell
+    client.connect(host, username=username, password=password)
+    # You need to invoke shell to open interactive shell for multiple commands
+    return client
 
 
 # Send command and read the output
@@ -53,17 +67,8 @@ def send_command(shell, command):
     return data
 
 
-def create_connection():
-    # Create the paramiko SSH instance
-    client = paramiko.SSHClient()
-    policy = paramiko.client.WarningPolicy()
-    client.set_missing_host_key_policy(policy)
-    # Connect to the host and invoke shell
-    client.connect(host, username=username, password=password)
-    # You need to invoke shell to open interactive shell for multiple commands
-    return client
-
-
+# Close the connection
+# @param connection - SSHClient instance
 def close_connection(connection):
     connection.close()
 
@@ -93,7 +98,7 @@ if __name__ == '__main__':
     command = "copy http://{}/config.txt bootflash".format(server)
     print send_command(shell, command)
     print send_command(shell, '')
-    print send_command(shell, '')
+    print send_command(shell, '')   # Two \n are needed if config.txt already exists on the router
 
     # Copy configuration to the running-configuration
     command = "copy bootflash:config.txt system:running-config"
