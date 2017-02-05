@@ -125,8 +125,7 @@ def main():
     ##############################################################################
     # Save template to file at the location /var/www/html/config.txt
     ##############################################################################
-    # f = open('/var/www/html/config.txt', 'w')
-    f = open('./config.txt', 'w')
+    f = open('/var/www/html/config.txt', 'w')
     f.write(template_rendered)
     f.close()
     ##############################################################################
