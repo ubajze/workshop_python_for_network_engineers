@@ -1,6 +1,6 @@
-{% for interface in interfaces %}
-interface {{ interface }}
- ip address {{ interfaces[interface] }} 255.255.255.255
+{% for interface_id in interfaces %}
+interface Loopback {{ interface_id }}
+ ip address {{ interfaces[interface_id] }} 255.255.255.252
  exit
 !
 {% endfor %}
