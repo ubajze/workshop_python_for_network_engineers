@@ -87,10 +87,10 @@ def calculate_ip_addresses(super_class, loopback_count):
 
     ip_network = ipaddr.IPv4Network(super_class)
     current_ip = ipaddr.IPv4Network(str(ip_network.ip + 1) + '/30')
-    loopback_dictionary[1000] = str(current_ip.ip)
+    loopback_dictionary['1000'] = str(current_ip.ip)
     for i in range(1, loopback_count):
         current_ip = ipaddr.IPv4Network(str(current_ip.ip + 4) + '/30')
-        loopback_dictionary[1000 + i] = str(current_ip.ip)
+        loopback_dictionary[str(1000 + i)] = str(current_ip.ip)
     return loopback_dictionary
 ##############################################################################
 
@@ -101,6 +101,7 @@ def main():
     # Create a dictionary with Loopback ID as key and IP address as value
     ##############################################################################
     loopback_dictionary = calculate_ip_addresses(super_class, loopback_count)
+    render_data = {'interfaces': loopback_dictionary}
     ##############################################################################
 
 
@@ -114,14 +115,18 @@ def main():
     ##############################################################################
     # Render the template
     ##############################################################################
-    template_rendered = template.render(loopback_dictionary)
+    print loopback_dictionary
+    print template
+    template_rendered = template.render(render_data)
+    print template_rendered
     ##############################################################################
 
 
     ##############################################################################
     # Save template to file at the location /var/www/html/config.txt
     ##############################################################################
-    f = open('/var/www/html/config.txt', 'w')
+    # f = open('/var/www/html/config.txt', 'w')
+    f = open('./config.txt', 'w')
     f.write(template_rendered)
     f.close()
     ##############################################################################
